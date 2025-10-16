@@ -1,5 +1,5 @@
 /* * App.css
- * Styles for the full-screen split login and the chat application
+ * Unified Orange-White Theme for Login, Register & Chat Application
  */
 
 /* ==========================================================
@@ -7,9 +7,36 @@
    ========================================================== */
 
 .app {
-  /* Ensure the app takes full viewport height */
   height: 100vh;
   display: flex;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #fff3e0;
+  color: #333;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff3e0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fb8c00;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e65100;
 }
 
 /* ==========================================================
@@ -17,82 +44,51 @@
    ========================================================== */
 
 .auth-container {
-  /* Takes up the entire app space for the login/register views */
   display: flex;
   height: 100vh;
   width: 100%;
 }
 
-/* App.css (Relevant Sections Only) */
+.auth-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff3e0;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
 
-/* -----------------------------------
-   2. Authentication Styles (Login/Register)
-   ----------------------------------- */
+.auth-image {
+  max-width: 90%;
+  max-height: 85vh;
+  object-fit: contain;
+  padding: 20px;
+}
 
-/* The entire right half of the screen */
 .auth-right {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Keep the soft orange background for the whole right panel */
-  background: #fff3e0; 
+  background: #fff3e0;
 }
 
-/* The Login/Register Card */
 .auth-box {
-  /* 🛑 KEY CHANGE 1: Remove the white background. 
-     It should inherit the #fff3e0 from .auth-right */
-  background:#ffffff; 
-  
-  /* 🛑 KEY CHANGE 2: Increase padding to push the form content away 
-     from the edges of the form area */
-  padding: 60px 80px; 
-  
+  background: #ffffff;
+  padding: 60px 80px;
   border-radius: 10px;
-  /* Keep a subtle shadow to make the form content pop */
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 450px; /* Adjust max-width slightly for better visual balance */
+  max-width: 450px;
 }
-
-/* 🛑 KEY CHANGE 3: Ensure the image background extends fully */
-.auth-left {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff3e0; /* Match the right side background for uniformity */
-}
-
-/* 🛑 KEY CHANGE 4: Add a right border to the left panel (auth-left) 
-   This visually "separates" the image from the form content, 
-   instead of separating the form from its background. */
-.auth-left {
-  /* ... existing styles ... */
-  border-right: 1px solid rgba(0, 0, 0, 0.1); /* Subtle vertical separator line */
-}
-
-
-/* --- Image scaling and centering --- */
-.auth-image {
-    max-width: 90%; /* Let the image fill more space on the left */
-    max-height: 85vh; 
-    object-fit: contain; 
-    padding: 20px; 
-}
-
-/* ... rest of your form and chat styles remain the same ... */
 
 .auth-box h2 {
   margin-bottom: 30px;
-  color: #fb8c00; /* dark orange heading */
+  color: #fb8c00;
   text-align: center;
-  font-family: sans-serif;
   font-weight: 700;
 }
 
-/* Form styling */
 .form-group {
   margin-bottom: 20px;
 }
@@ -110,13 +106,12 @@
   padding: 12px 15px;
   border: 1px solid #fb8c00;
   border-radius: 8px;
-  box-sizing: border-box;
   font-size: 16px;
   transition: border-color 0.3s;
 }
 
 .form-group input:focus {
-  border-color: #e65100; /* slightly darker orange on focus */
+  border-color: #e65100;
   outline: none;
   box-shadow: 0 0 5px rgba(251, 140, 0, 0.3);
 }
@@ -124,7 +119,6 @@
 .btn-primary {
   width: 100%;
   padding: 12px;
-  /* Orange Gradient */
   background: linear-gradient(135deg, #fb8c00 0%, #ffb74d 100%);
   color: white;
   border: none;
@@ -148,7 +142,6 @@
   box-shadow: none;
 }
 
-/* Error styling */
 .error-message {
   background: #fff3e0;
   color: #e65100;
@@ -159,7 +152,6 @@
   font-size: 14px;
 }
 
-/* Auth switch (Register Link) */
 .auth-switch {
   margin-top: 25px;
   font-size: 14px;
@@ -179,7 +171,7 @@
 }
 
 /* ==========================================================
-   3. Chat Window Styles
+   3. Chat Window Styles — Updated to Orange-White Theme
    ========================================================== */
 
 .chat-container {
@@ -187,22 +179,21 @@
   flex: 1;
   height: 100vh;
   overflow: hidden;
-  background: #f7f7f7;
+  background: #fffaf3;
 }
 
 /* --- Sidebar (User List) --- */
 .sidebar {
   width: 350px;
   background: white;
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid #ffe0b2;
   display: flex;
   flex-direction: column;
 }
 
 .sidebar-header {
   padding: 20px;
-  /* Purple Gradient */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #fb8c00 0%, #ffb74d 100%);
   color: white;
   display: flex;
   justify-content: space-between;
@@ -245,12 +236,12 @@
 }
 
 .user-item:hover {
-  background: #f8f8f8;
+  background: #fff8e1;
 }
 
 .user-item.active {
-  background: #eef1ff; /* Light purple for active user */
-  border-left: 4px solid #667eea;
+  background: #fff3e0;
+  border-left: 4px solid #fb8c00;
   padding-left: 16px;
 }
 
@@ -259,7 +250,7 @@
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #667eea;
+  border: 2px solid #fb8c00;
 }
 
 .user-info {
@@ -278,10 +269,10 @@
 }
 
 .online-indicator {
-  min-width: 10px; /* Use min-width to ensure the circle doesn't collapse */
+  min-width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #4caf50; /* Green */
+  background: #4caf50;
 }
 
 .offline-indicator {
@@ -296,13 +287,13 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: #fafafa;
+  background: #fffaf3;
 }
 
 .chat-header {
   padding: 15px 20px;
   background: white;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #ffe0b2;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -311,6 +302,7 @@
 .chat-header .user-name {
   margin: 0;
   font-size: 18px;
+  color: #fb8c00;
 }
 
 .chat-messages {
@@ -334,10 +326,8 @@
 
 .message-sent {
   align-self: flex-end;
-  /* Purple Gradient */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #fb8c00 0%, #ffb74d 100%);
   color: white;
-  /* Sharp corner on the right */
   border-bottom-right-radius: 4px;
 }
 
@@ -346,13 +336,8 @@
   background: white;
   color: #333;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #eee;
-  /* Sharp corner on the left */
+  border: 1px solid #ffe0b2;
   border-bottom-left-radius: 4px;
-}
-
-.message-content {
-  margin-bottom: 4px;
 }
 
 .message-time {
@@ -361,17 +346,18 @@
   font-size: 11px;
   opacity: 0.8;
   margin-top: 5px;
-  color: inherit; /* Inherit color for sent/received */
+  color: inherit;
 }
 
 .message-received .message-time {
   color: #888;
 }
 
+/* --- Typing Indicator --- */
 .typing-indicator {
   padding: 10px 20px;
   font-size: 14px;
-  color: #666;
+  color: #fb8c00;
   font-style: italic;
 }
 
@@ -379,7 +365,7 @@
 .message-input-container {
   padding: 15px 20px;
   background: white;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid #ffe0b2;
 }
 
 .message-input-form {
@@ -390,21 +376,21 @@
 .message-input {
   flex: 1;
   padding: 12px 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #fb8c00;
   border-radius: 25px;
   font-size: 15px;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .message-input:focus {
-  border-color: #667eea;
+  border-color: #e65100;
+  box-shadow: 0 0 4px rgba(251, 140, 0, 0.3);
 }
 
 .send-button {
   padding: 12px 24px;
-  /* Purple Gradient */
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #fb8c00 0%, #ffb74d 100%);
   color: white;
   border: none;
   border-radius: 25px;
@@ -415,16 +401,17 @@
 
 .send-button:hover {
   transform: scale(1.02);
-  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 4px 10px rgba(251, 140, 0, 0.4);
 }
 
 .send-button:disabled {
-  background: #aab8ff;
+  background: #ffcc80;
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
+/* --- Empty Chat State --- */
 .empty-chat {
   flex: 1;
   display: flex;

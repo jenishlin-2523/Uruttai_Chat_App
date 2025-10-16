@@ -5,7 +5,7 @@ import { useSocket } from '../../context/SocketContext';
 import Sidebar from '../Layout/Sidebar';
 import ChatList from './ChatList';
 import MessageInput from './MessageInput';
-import { format } from 'date-fns';
+import { getAvatarSvg } from '../../utils/avatar'; // <-- import DiceBear utility
 
 function ChatWindow() {
   const [users, setUsers] = useState([]);
@@ -65,7 +65,7 @@ function ChatWindow() {
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users`);
       setUsers(response.data);
-      
+
       const onlineStatus = {};
       response.data.forEach((u) => {
         onlineStatus[u._id] = u.online;
@@ -122,10 +122,10 @@ function ChatWindow() {
         {selectedUser ? (
           <>
             <div className="chat-header">
-              <img
-                src={selectedUser.avatar}
-                alt={selectedUser.username}
+              {/* Use DiceBear avatar SVG instead of <img> */}
+              <div
                 className="user-avatar"
+                dangerouslySetInnerHTML={{ __html: getAvatarSvg(selectedUser._id) }}
               />
               <div className="user-info">
                 <div className="user-name">{selectedUser.username}</div>

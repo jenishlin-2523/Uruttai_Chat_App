@@ -1,6 +1,6 @@
 // src/components/Auth/Login.js (Updated)
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import UruttaImage from '../../assets/1.png';
@@ -10,8 +10,15 @@ function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect to chat if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/chat');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,9 +27,12 @@ function Login() {
 
     try {
       await login(email, password); 
-      navigate('/');
+      navigate('/chat'); // ✅ Navigate to chat after login
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+      setError(
+        err.response?.data?.message ||
+        'Login failed. Please check your credentials.'
+      );
     } finally {
       setLoading(false);
     }
@@ -30,21 +40,22 @@ function Login() {
 
   return (
     <div className="auth-container">
-      
-      {/* 1. Left Side: Image/Branding (Flex: 1) */}
-      {/* We are putting the image inside the div now */}
+      {/* Left Side: Image/Branding */}
       <div className="auth-left">
-        {/* The image is displayed here */}
-        <img src={UruttaImage}alt="Urutta Chat App Logo" className="auth-image" />
+        <img
+          src={UruttaImage}
+          alt="Urutta Chat App Logo"
+          className="auth-image"
+        />
       </div>
-      
-      {/* 2. Right Side: Login Form (Flex: 1) */}
+
+      {/* Right Side: Login Form */}
       <div className="auth-right">
         <div className="auth-box">
           <h2>Welcome Back</h2>
-          
+
           {error && <div className="error-message">{error}</div>}
-          
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">Email</label>
@@ -57,6 +68,7 @@ function Login() {
                 placeholder="Enter your email"
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
@@ -68,11 +80,12 @@ function Login() {
                 placeholder="Enter your password"
               />
             </div>
+
             <button type="submit" className="btn-primary" disabled={loading}>
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
-          
+
           <div className="auth-switch">
             Don't have an account?
             <Link to="/register">
@@ -85,4 +98,4 @@ function Login() {
   );
 }
 
-export default Login;   
+export default Login;

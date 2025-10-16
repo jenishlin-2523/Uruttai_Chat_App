@@ -1,14 +1,14 @@
 import React from 'react';
+import { getAvatarSvg } from '../../utils/avatar';
 
 function Sidebar({ users, selectedUser, onSelectUser, onlineUsers, currentUser, onLogout }) {
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <h2>Chats</h2>
-        <button onClick={onLogout} className="logout-btn">
-          Logout
-        </button>
+        <h2>Uruttai Chat</h2>
+        <button onClick={onLogout} className="logout-btn">Logout</button>
       </div>
+
       <div className="user-list">
         {users.map((u) => (
           <div
@@ -16,7 +16,10 @@ function Sidebar({ users, selectedUser, onSelectUser, onlineUsers, currentUser, 
             className={`user-item ${selectedUser?._id === u._id ? 'active' : ''}`}
             onClick={() => onSelectUser(u)}
           >
-            <img src={u.avatar} alt={u.username} className="user-avatar" />
+            <div
+              className="user-avatar"
+              dangerouslySetInnerHTML={{ __html: getAvatarSvg(u._id) }}
+            />
             <div className="user-info">
               <div className="user-name">{u.username}</div>
               <div className="user-status-text">{u.status}</div>

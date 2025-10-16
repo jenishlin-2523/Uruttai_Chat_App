@@ -1,0 +1,213 @@
+/* === Global reset === */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+/* === Landing Container === */
+.landing-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 0 6%;
+  box-sizing: border-box;
+  background-color: #fff8e1;
+  overflow: hidden;
+}
+
+/* === LEFT SIDE === */
+.landing-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 4rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+
+.logo-box {
+  background-color: #ffd700;
+  color: #002b45;
+  font-weight: bold;
+  font-size: 22px;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.landing-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #000;
+  line-height: 1.2;
+}
+
+.landing-text {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 1.5rem 0 2rem;
+  max-width: 500px;
+}
+
+.landing-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.register-btn,
+.login-btn {
+  border: none;
+  padding: 12px 26px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.register-btn {
+  background-color: #ffd700;
+  color: #002b45;
+}
+
+.register-btn:hover {
+  background-color: #e6c200;
+}
+
+.login-btn {
+  background-color: #000;
+  color: #fff;
+}
+
+.login-btn:hover {
+  background-color: #333;
+}
+
+/* === RIGHT SIDE === */
+.landing-right {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Floating image grid */
+.image-grid {
+  position: relative;
+  width: 100%;
+  height: 90%;
+}
+
+/* General image styles */
+.grid-img {
+  position: absolute;
+  border-radius: 25px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Hover effect */
+.grid-img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* === Updated Individual Positioning - Well Aligned === */
+/* === Updated Individual Positioning - 5 Images Well Aligned === */
+.grid-img:nth-child(1) {
+  width: 200px;
+  height: 200px;
+  top: 12%;
+  left: 12%;
+  animation-delay: 0s;
+}
+
+.grid-img:nth-child(2) {
+  width: 200px;
+  height: 200px;
+  top: 18%;
+  right: 5%;
+  animation-delay: 0.8s;
+}
+
+
+.grid-img:nth-child(3) {
+  width: 170px;
+  height: 170px;
+  top: 38%;
+  left: 38%;
+  animation-delay: 1.2s;
+  z-index: 2;
+}
+
+.grid-img:nth-child(4) {
+  width: 180px;
+  height: 180px;
+  bottom: 17%;
+  left: 15%;
+  animation-delay: 1.8s;
+}
+
+.grid-img:nth-child(5) {
+  width: 200px;
+  height: 200px;
+  bottom: 13%;
+  right: 10%;
+  animation-delay: 2.4s;
+}
+
+
+/* Floating animation */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+/* === Responsive adjustments === */
+@media (max-width: 950px) {
+  .landing-container {
+    flex-direction: column;
+    height: auto;
+    text-align: center;
+    padding: 5%;
+  }
+
+  .landing-left {
+    padding-right: 0;
+    margin-bottom: 2rem;
+  }
+
+  .landing-right {
+    width: 100%;
+    height: 400px;
+    margin-top: 20px;
+  }
+
+  .grid-img {
+    width: 100px !important;
+    height: 100px !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    margin: 10px;
+    position: relative;
+    display: inline-block;
+    animation: float 4s ease-in-out infinite;
+  }
+}

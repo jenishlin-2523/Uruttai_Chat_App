@@ -1,8 +1,9 @@
-// src/components/Auth/Register.js
+// src/components/Auth/Register.js (Updated)
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import UruttaImage from '../../assets/2.png';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -11,8 +12,15 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
+  const { register, user } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (user) {
+      navigate('/chat');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,34 +39,36 @@ function Register() {
     setLoading(true);
 
     try {
-      // The `register` function is assumed to be defined in AuthContext
-      await register(username, email, password);
-      // Navigate to the main chat window or login after successful registration
-      navigate('/'); 
+      await register(username, email, password); 
+      navigate('/chat'); // ✅ Navigate to chat after successful registration
     } catch (err) {
-      // Handle network or authentication error
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      setError(
+        err.response?.data?.message ||
+        'Registration failed. Please try again.'
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    // auth-container uses the full-screen flex layout from App.css
     <div className="auth-container">
-      
-      {/* 1. Left Side: Image/Branding (Uses .auth-left CSS) */}
+      {/* Left Side: Image/Branding */}
       <div className="auth-left">
-        {/* The background image is set via CSS */}
+        <img
+          src={UruttaImage}
+          alt="Urutta Chat App Logo"
+          className="auth-image"
+        />
       </div>
-      
-      {/* 2. Right Side: Registration Form Container (Uses .auth-right CSS) */}
+
+      {/* Right Side: Registration Form */}
       <div className="auth-right">
         <div className="auth-box">
           <h2>Create Account</h2>
-          
+
           {error && <div className="error-message">{error}</div>}
-          
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="username">Username</label>
@@ -71,7 +81,7 @@ function Register() {
                 placeholder="Choose a username"
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input
@@ -83,7 +93,7 @@ function Register() {
                 placeholder="Enter your email"
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
@@ -95,7 +105,7 @@ function Register() {
                 placeholder="Create a password"
               />
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirm Password</label>
               <input
@@ -107,12 +117,12 @@ function Register() {
                 placeholder="Confirm your password"
               />
             </div>
-            
+
             <button type="submit" className="btn-primary" disabled={loading}>
               {loading ? 'Creating Account...' : 'Register'}
             </button>
           </form>
-          
+
           <div className="auth-switch">
             Already have an account?
             <Link to="/login">
