@@ -1,3 +1,5 @@
+// src/components/Auth/Register.js
+
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -29,70 +31,94 @@ function Register() {
     setLoading(true);
 
     try {
+      // The `register` function is assumed to be defined in AuthContext
       await register(username, email, password);
-      navigate('/');
+      // Navigate to the main chat window or login after successful registration
+      navigate('/'); 
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed');
+      // Handle network or authentication error
+      setError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
+    // auth-container uses the full-screen flex layout from App.css
     <div className="auth-container">
-      <div className="auth-box">
-        <h2>Create Account</h2>
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              placeholder="Choose a username"
-            />
+      
+      {/* 1. Left Side: Image/Branding (Uses .auth-left CSS) */}
+      <div className="auth-left">
+        {/* The background image is set via CSS */}
+      </div>
+      
+      {/* 2. Right Side: Registration Form Container (Uses .auth-right CSS) */}
+      <div className="auth-right">
+        <div className="auth-box">
+          <h2>Create Account</h2>
+          
+          {error && <div className="error-message">{error}</div>}
+          
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                placeholder="Choose a username"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="Enter your email"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Create a password"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirm Password</label>
+              <input
+                id="confirmPassword"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                placeholder="Confirm your password"
+              />
+            </div>
+            
+            <button type="submit" className="btn-primary" disabled={loading}>
+              {loading ? 'Creating Account...' : 'Register'}
+            </button>
+          </form>
+          
+          <div className="auth-switch">
+            Already have an account?
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
           </div>
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              placeholder="Enter your email"
-            />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="Create a password"
-            />
-          </div>
-          <div className="form-group">
-            <label>Confirm Password</label>
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              placeholder="Confirm your password"
-            />
-          </div>
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Creating Account...' : 'Register'}
-          </button>
-        </form>
-        <div className="auth-switch">
-          Already have an account?
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
         </div>
       </div>
     </div>
