@@ -12,13 +12,30 @@ const app = express();
 const server = http.createServer(app);
 
 // Allow CORS for both local dev and deployed frontend
-const FRONTEND_URL = process.env.FRONTEND_URL || 'https://uruttai-chat-app-production.up.railway.app';
-const LOCAL_URL = 'http://localhost:3000';
+// Allow multiple origins
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'https://uruttai-chat-app-production.up.railway.app',
+  process.env.FRONTEND_URL
+].filter(Boolean);
 
+// Enhanced CORS configuration
 app.use(cors({
-  origin: [FRONTEND_URL, LOCAL_URL],
+  origin: function(origin, callback) {
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
 
 // Middleware
 app.use(express.json());
